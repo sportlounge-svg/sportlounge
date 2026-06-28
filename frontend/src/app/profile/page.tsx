@@ -75,7 +75,7 @@ export default function ProfilePage() {
       brand: i.flavor.brand?.name || 'Unknown',
       grams: i.grams
     }))));
-    router.push('/create');
+    router.push('/order');
   };
 
   if (loading) {

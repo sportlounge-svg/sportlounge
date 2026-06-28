@@ -110,7 +110,7 @@ export default function MenuPage() {
     if (prefillItems.length > 0) {
       localStorage.setItem('sport_lounge_prefill_mix', JSON.stringify(prefillItems));
     }
-    router.push('/create');
+    router.push('/order');
   };
 
   const showTobacco = category !== 'signature' && category !== 'authors';

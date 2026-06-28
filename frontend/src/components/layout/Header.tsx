@@ -8,7 +8,7 @@ import { HookahIcon } from '@/components/ui/Icons';
 const NAV_ITEMS = [
   { href: '/', label: 'Главная' },
   { href: '/menu', label: 'Меню' },
-  { href: '/create', label: 'Заказать' },
+  { href: '/order', label: 'Заказать' },
   { href: '/track', label: 'Отследить' },
 ];
 
