@@ -1,7 +1,7 @@
 1:"$Sreact.fragment"
 2:I[34636,["/sportlounge/_next/static/chunks/19mzzsk24j6ox.js","/sportlounge/_next/static/chunks/21p-i82-2u343.js"],"ClientSegmentRoot"]
-3:I[62473,["/sportlounge/_next/static/chunks/19mzzsk24j6ox.js","/sportlounge/_next/static/chunks/21p-i82-2u343.js","/sportlounge/_next/static/chunks/20ldal2qef5ra.js"],"default"]
+3:I[62473,["/sportlounge/_next/static/chunks/19mzzsk24j6ox.js","/sportlounge/_next/static/chunks/21p-i82-2u343.js","/sportlounge/_next/static/chunks/15ch7cpttq0zb.js"],"default"]
 4:I[32035,["/sportlounge/_next/static/chunks/19mzzsk24j6ox.js","/sportlounge/_next/static/chunks/21p-i82-2u343.js"],"default"]
 5:I[91168,["/sportlounge/_next/static/chunks/19mzzsk24j6ox.js","/sportlounge/_next/static/chunks/21p-i82-2u343.js"],"default"]
-0:{"rsc":["$","$1","c",{"children":[[["$","script","script-0",{"src":"/sportlounge/_next/static/chunks/20ldal2qef5ra.js","async":true}]],["$","$L2",null,{"Component":"$3","slots":{"children":["$","$L4",null,{"parallelRouterKey":"children","template":["$","$L5",null,{}]}]},"serverProvidedParams":{"params":{},"promises":["$@6"]}}]]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"ST2AHun8rhnDZA8XE6GCu"}
+0:{"rsc":["$","$1","c",{"children":[[["$","script","script-0",{"src":"/sportlounge/_next/static/chunks/15ch7cpttq0zb.js","async":true}]],["$","$L2",null,{"Component":"$3","slots":{"children":["$","$L4",null,{"parallelRouterKey":"children","template":["$","$L5",null,{}]}]},"serverProvidedParams":{"params":{},"promises":["$@6"]}}]]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"EFsi75hRRrTm-319eUtxx"}
 6:"$0:rsc:props:children:1:props:serverProvidedParams:params"
