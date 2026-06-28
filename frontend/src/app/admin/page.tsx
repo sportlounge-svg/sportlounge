@@ -33,9 +33,9 @@ export default function AdminDashboard() {
       <div>
         <h1 className="text-2xl font-bold mb-6 text-gold-gradient" style={{ fontFamily: "'Playfair Display', serif" }}>Дашборд</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-          {[...Array(4)].map((_, i) => <div key={i} className="skeleton h-28 rounded-2xl" />)}
+          {[...Array(4)].map((_, i) => <div key={i} className="skeleton h-28 rounded-2xl animate-pulse" />)}
         </div>
-        <div className="skeleton h-64 rounded-2xl" />
+        <div className="skeleton h-64 rounded-2xl animate-pulse" />
       </div>
     );
   }
@@ -43,10 +43,10 @@ export default function AdminDashboard() {
   if (!data) return <div style={{ color: 'var(--danger)' }}>Ошибка загрузки данных</div>;
 
   const kpis = [
-    { label: 'Заказов сегодня', value: data.today.orders, icon: (color: string) => <SparklesIcon size={22} color={color} />, accent: 'var(--gold)', sub: `${data.today.active} активных` },
-    { label: 'Выручка сегодня', value: `${data.today.revenue.toLocaleString('ru-RU')}₽`, icon: (color: string) => <WalletIcon size={22} color={color} />, accent: 'var(--success)', sub: `${data.today.completed} выполнено` },
-    { label: 'Клиенты', value: data.clients?.total || 0, icon: (color: string) => <UsersIcon size={22} color={color} />, accent: 'var(--info)', sub: 'Всего в базе' },
-    { label: 'Низкий запас', value: data.tobacco.lowStock.length, icon: (color: string) => <WarningIcon size={22} color={color} />, accent: 'var(--warning)', sub: `${data.tobacco.pendingRestocks} заявок` },
+    { label: 'Заказов сегодня', value: data.today.orders, icon: (color: string) => <SparklesIcon size={20} color={color} />, accent: 'var(--gold)', sub: `${data.today.active} активных` },
+    { label: 'Выручка сегодня', value: `${data.today.revenue.toLocaleString('ru-RU')}₽`, icon: (color: string) => <WalletIcon size={20} color={color} />, accent: 'var(--success)', sub: `${data.today.completed} готово` },
+    { label: 'Клиенты в базе', value: data.clients?.total || 0, icon: (color: string) => <UsersIcon size={20} color={color} />, accent: 'var(--info)', sub: 'Всего гостей' },
+    { label: 'Низкий запас', value: data.tobacco.lowStock.length, icon: (color: string) => <WarningIcon size={20} color={color} />, accent: 'var(--warning)', sub: `${data.tobacco.pendingRestocks} заявок` },
   ];
 
   const history = data.kpiHistory && data.kpiHistory.length > 0
@@ -86,7 +86,7 @@ export default function AdminDashboard() {
     <div>
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-2xl font-bold text-gold-gradient" style={{ fontFamily: "'Playfair Display', serif" }}>Дашборд</h1>
-        <span className="text-[10px] uppercase font-bold tracking-wider" style={{ color: 'var(--text-muted)' }}>
+        <span className="text-[9px] uppercase font-bold tracking-wider font-mono-utility" style={{ color: 'var(--text-muted)' }}>
           Обновлено: {new Date().toLocaleTimeString('ru-RU')}
         </span>
       </div>
@@ -95,14 +95,14 @@ export default function AdminDashboard() {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8 stagger-children">
         {kpis.map((kpi, i) => (
           <div key={i} className="card p-6 shadow-premium" style={{ borderLeft: `3px solid ${kpi.accent}`, borderTop: '1px solid var(--border)', borderRight: '1px solid var(--border)', borderBottom: '1px solid var(--border)' }}>
-            <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center justify-between mb-4 font-mono-utility">
               {kpi.icon(kpi.accent)}
-              <span className="text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full" style={{ background: `${kpi.accent}12`, color: kpi.accent }}>
+              <span className="text-[8px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full" style={{ background: `${kpi.accent}08`, color: kpi.accent, border: `1px solid ${kpi.accent}15` }}>
                 {kpi.sub}
               </span>
             </div>
-            <p className="text-2xl font-bold mb-1 tracking-wide" style={{ color: 'var(--text-primary)' }}>{kpi.value}</p>
-            <p className="text-[10px] uppercase tracking-wider font-semibold" style={{ color: 'var(--text-muted)' }}>{kpi.label}</p>
+            <p className="text-2xl font-bold mb-1 tracking-wide font-mono-utility" style={{ color: 'var(--text-primary)' }}>{kpi.value}</p>
+            <p className="text-[9px] uppercase tracking-wider font-bold" style={{ color: 'var(--text-muted)' }}>{kpi.label}</p>
           </div>
         ))}
       </div>
@@ -114,12 +114,12 @@ export default function AdminDashboard() {
             <h2 className="text-base font-semibold mb-1" style={{ color: 'var(--gold-light)', fontFamily: "'Playfair Display', serif" }}>
               Аналитика доходов
             </h2>
-            <p className="text-[10px] uppercase tracking-wider mb-6 font-semibold" style={{ color: 'var(--text-muted)' }}>
+            <p className="text-[9px] uppercase tracking-wider mb-6 font-bold" style={{ color: 'var(--text-muted)' }}>
               Статистика доходов за последние 7 дней
             </p>
           </div>
 
-          <div className="flex items-end justify-between h-48 gap-4 px-2">
+          <div className="flex items-end justify-between h-48 gap-4 px-2 font-mono-utility">
             {history.map((h: any, i: number) => {
               const heightPercent = `${Math.min(100, Math.max(10, (Number(h.total_revenue || 0) / maxRevenue) * 100))}%`;
               const formattedDate = h.snapshot_date.includes('T') 
@@ -138,7 +138,7 @@ export default function AdminDashboard() {
                     style={{
                       height: heightPercent,
                       background: 'linear-gradient(to top, var(--gold-dark), var(--gold))',
-                      boxShadow: '0 0 15px rgba(217,178,130,0.15)',
+                      boxShadow: '0 0 15px rgba(212,165,116,0.15)',
                     }}
                   />
                   <span className="text-[9px] uppercase font-bold tracking-wider" style={{ color: 'var(--text-muted)' }}>
@@ -156,16 +156,16 @@ export default function AdminDashboard() {
             <h2 className="text-base font-semibold mb-1" style={{ color: 'var(--gold-light)', fontFamily: "'Playfair Display', serif" }}>
               Календарь
             </h2>
-            <p className="text-[10px] uppercase tracking-wider mb-6 font-semibold" style={{ color: 'var(--text-muted)' }}>
+            <p className="text-[9px] uppercase tracking-wider mb-6 font-bold font-mono-utility" style={{ color: 'var(--text-muted)' }}>
               {monthNames[month]} {year}
             </p>
           </div>
 
-          <div className="grid grid-cols-7 gap-1 text-center text-[10px] mb-3 font-bold uppercase tracking-wider" style={{ color: 'var(--text-muted)' }}>
+          <div className="grid grid-cols-7 gap-1 text-center text-[9px] mb-3 font-bold uppercase tracking-wider font-mono-utility" style={{ color: 'var(--text-muted)' }}>
             {["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"].map(d => <span key={d}>{d}</span>)}
           </div>
 
-          <div className="grid grid-cols-7 gap-1 text-center text-xs">
+          <div className="grid grid-cols-7 gap-1 text-center text-xs font-mono-utility">
             {calendarDays.map((item, idx) => (
               <div
                 key={idx}
@@ -181,7 +181,7 @@ export default function AdminDashboard() {
             ))}
           </div>
 
-          <div className="mt-5 pt-4 flex flex-col gap-2 text-[9px] uppercase font-semibold tracking-wider" style={{ borderTop: '1px solid var(--border)', color: 'var(--text-muted)' }}>
+          <div className="mt-5 pt-4 flex flex-col gap-2 text-[9px] uppercase font-semibold tracking-wider font-mono-utility" style={{ borderTop: '1px solid var(--border)', color: 'var(--text-muted)' }}>
             <div className="flex items-center gap-2">
               <div className="w-1.5 h-1.5 rounded-full" style={{ background: 'var(--success)' }} />
               <span>Смена: Алексей, Дмитрий</span>
@@ -216,8 +216,8 @@ export default function AdminDashboard() {
                       </p>
                     </div>
                   </div>
-                  <div className="text-right">
-                    <span className={`badge badge-${order.status} text-[9px] font-bold`}>
+                  <div className="text-right font-mono-utility">
+                    <span className={`badge badge-${order.status} text-[8px] font-bold`}>
                       {STATUS_LABELS[order.status]}
                     </span>
                     {order.total_price > 0 && (
@@ -246,8 +246,8 @@ export default function AdminDashboard() {
                     <div className="w-2.5 h-2.5 rounded-full" style={{ background: statusColors[master.status] }} />
                     <span className="text-sm font-semibold">{master.name}</span>
                   </div>
-                  <div className="text-right">
-                    <span className="text-[10px] font-bold uppercase tracking-wider" style={{ color: statusColors[master.status] }}>{statusLabels[master.status]}</span>
+                  <div className="text-right font-mono-utility">
+                    <span className="text-[9px] font-bold uppercase tracking-wider" style={{ color: statusColors[master.status] }}>{statusLabels[master.status]}</span>
                     <p className="text-xs font-light mt-0.5" style={{ color: 'var(--text-muted)' }}>Сегодня: {master.completed_today}</p>
                   </div>
                 </div>
@@ -258,13 +258,15 @@ export default function AdminDashboard() {
           {/* Low stock alerts */}
           {data.tobacco.lowStock.length > 0 && (
             <div className="mt-6 pt-5" style={{ borderTop: '1px solid var(--border)' }}>
-              <h3 className="text-xs uppercase tracking-wider mb-4 font-bold" style={{ color: 'var(--warning)' }}>⚠️ Низкий запас табака</h3>
-              {data.tobacco.lowStock.slice(0, 5).map((flavor: any) => (
-                <div key={flavor.id} className="flex justify-between text-xs py-2" style={{ borderBottom: '1px solid rgba(255,255,255,0.01)' }}>
-                  <span style={{ color: 'var(--text-secondary)' }}>{flavor.brand?.name} {flavor.name}</span>
-                  <span style={{ color: 'var(--danger)', fontWeight: 600 }}>{Math.round(flavor.stock_grams)}г</span>
-                </div>
-              ))}
+              <h3 className="text-xs uppercase tracking-wider mb-4 font-bold font-mono-utility" style={{ color: 'var(--warning)' }}>⚠️ Низкий запас табака</h3>
+              <div className="font-mono-utility text-xs">
+                {data.tobacco.lowStock.slice(0, 5).map((flavor: any) => (
+                  <div key={flavor.id} className="flex justify-between py-2" style={{ borderBottom: '1px solid rgba(255,255,255,0.01)' }}>
+                    <span style={{ color: 'var(--text-secondary)' }} className="font-sans">{flavor.brand?.name} {flavor.name}</span>
+                    <span style={{ color: 'var(--danger)', fontWeight: 600 }}>{Math.round(flavor.stock_grams)}г</span>
+                  </div>
+                ))}
+              </div>
             </div>
           )}
         </div>

@@ -6,7 +6,7 @@ import Footer from '@/components/layout/Footer';
 import { supabase } from '@/lib/supabase';
 import { api } from '@/lib/api';
 import { Order, STATUS_LABELS, STATUS_EMOJI } from '@/types';
-import { CrownIcon, OrderIcon, WalletIcon, UsersIcon, LogoutIcon } from '@/components/ui/Icons';
+import { CrownIcon, OrderIcon, UsersIcon, LogoutIcon } from '@/components/ui/Icons';
 
 export default function ProfilePage() {
   const router = useRouter();
@@ -85,7 +85,7 @@ export default function ProfilePage() {
         <main className="pt-24 pb-16 min-h-screen flex items-center justify-center">
           <div className="text-center">
             <span className="animate-spin inline-block w-8 h-8 rounded-full border-4 border-solid border-current border-t-transparent text-gold mr-3" style={{ color: 'var(--gold)' }} />
-            <p className="mt-4 text-xs uppercase tracking-wider" style={{ color: 'var(--text-muted)' }}>Загрузка профиля...</p>
+            <p className="mt-4 text-xs uppercase tracking-wider font-mono-utility" style={{ color: 'var(--text-muted)' }}>Загрузка профиля...</p>
           </div>
         </main>
         <Footer />
@@ -98,48 +98,48 @@ export default function ProfilePage() {
   return (
     <>
       <Header />
-      <main className="pt-24 pb-16 min-h-screen">
-        <div className="max-w-4xl mx-auto px-4 pt-4 animate-fade-in">
+      <main className="pt-24 pb-16 min-h-screen relative overflow-hidden smoke-bg">
+        {/* Glow */}
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full filter blur-[150px] opacity-[0.03] pointer-events-none"
+          style={{ background: 'radial-gradient(circle, var(--gold) 0%, transparent 70%)' }} />
+
+        <div className="max-w-4xl mx-auto px-4 pt-4 relative z-10 animate-fade-in">
           {/* Profile header card */}
           {user && (
             <div className="card p-8 md:p-10 mb-12 relative overflow-hidden shadow-premium" style={{ border: '1px solid var(--border)' }}>
               <div className="flex flex-col md:flex-row items-center gap-8 z-10 relative">
                 {isUserValid && user.avatar ? (
-                  <img src={user.avatar} alt={user.name} className="w-24 h-24 rounded-full border-2 border-solid" style={{ borderColor: 'var(--gold)' }} />
+                  <img src={user.avatar} alt={user.name} className="w-20 h-20 rounded-full border-2 border-solid" style={{ borderColor: 'var(--gold)' }} />
                 ) : (
-                  <div className="w-24 h-24 rounded-full flex items-center justify-center text-4xl border" style={{ background: 'rgba(255,255,255,0.01)', borderColor: 'var(--border)' }}>
-                    <UsersIcon size={44} color="var(--gold)" />
+                  <div className="w-20 h-20 rounded-full flex items-center justify-center border" style={{ background: 'rgba(255,255,255,0.01)', borderColor: 'var(--border)' }}>
+                    <UsersIcon size={32} color="var(--gold)" />
                   </div>
                 )}
                 
                 <div className="text-center md:text-left flex-1">
-                  <h1 className="text-3xl font-bold text-gold-gradient mb-2" style={{ fontFamily: "'Playfair Display', serif" }}>
+                  <h1 className="text-3xl font-bold text-gold-gradient mb-1" style={{ fontFamily: "'Playfair Display', serif" }}>
                     {isUserValid ? user.name : (user.email ? user.email.split('@')[0] : 'Уважаемый Гость')}
                   </h1>
-                  <p className="text-sm mb-6" style={{ color: 'var(--text-secondary)' }}>{user.email}</p>
+                  <p className="text-xs mb-5 font-mono-utility" style={{ color: 'var(--text-secondary)' }}>{user.email}</p>
                   
-                  <div className="flex flex-wrap justify-center md:justify-start gap-4 text-xs font-semibold uppercase tracking-wider">
-                    <span className="px-3.5 py-1.5 rounded-full" style={{ background: 'rgba(217,178,130,0.05)', color: 'var(--gold)', border: '1px solid var(--border)' }}>
-                      Клубная карта: {isUserValid && user.role === 'admin' ? 'Администратор' : isUserValid && user.role === 'master' ? 'Мастер' : 'VIP Клиент'}
+                  <div className="flex flex-wrap justify-center md:justify-start gap-3.5 text-[9px] font-bold uppercase tracking-wider font-mono-utility">
+                    <span className="px-3.5 py-1.5 rounded-full" style={{ background: 'rgba(212,165,116,0.03)', color: 'var(--gold)', border: '1px solid var(--border)' }}>
+                      Статус: {isUserValid && user.role === 'admin' ? 'Администратор' : isUserValid && user.role === 'master' ? 'Мастер' : 'VIP Клиент'}
                     </span>
-                    <span className="px-3.5 py-1.5 rounded-full" style={{ background: 'rgba(52,199,89,0.05)', color: 'var(--success)', border: '1px solid rgba(52,199,89,0.1)' }}>
-                      {isUserValid ? user.total_orders : 0} заказов
+                    <span className="px-3.5 py-1.5 rounded-full" style={{ background: 'rgba(129,199,132,0.04)', color: 'var(--success)', border: '1px solid rgba(129,199,132,0.15)' }}>
+                      {isUserValid ? user.total_orders : 0} визитов
                     </span>
-                    <span className="px-3.5 py-1.5 rounded-full" style={{ background: 'rgba(0,122,255,0.05)', color: 'var(--info)', border: '1px solid rgba(0,122,255,0.1)' }}>
-                      {(isUserValid ? user.total_spent : 0).toLocaleString('ru-RU')}₽ потрачено
+                    <span className="px-3.5 py-1.5 rounded-full" style={{ background: 'rgba(100,181,246,0.04)', color: 'var(--info)', border: '1px solid rgba(100,181,246,0.15)' }}>
+                      {(isUserValid ? user.total_spent : 0).toLocaleString('ru-RU')}₽
                     </span>
                   </div>
                 </div>
 
-                <button onClick={handleLogout} className="btn-outline text-xxs font-bold px-5 py-2.5 flex items-center gap-2">
-                  <LogoutIcon size={14} color="var(--gold)" />
+                <button onClick={handleLogout} className="btn-outline text-[9px] font-bold px-5 py-2.5 flex items-center gap-2 font-mono-utility">
+                  <LogoutIcon size={12} color="var(--gold)" />
                   Выйти
                 </button>
               </div>
-              
-              {/* Background gradient blur */}
-              <div className="absolute top-0 right-0 w-44 h-44 rounded-full filter blur-[70px] opacity-[0.06]"
-                style={{ background: 'var(--gold)' }} />
             </div>
           )}
 
@@ -147,7 +147,7 @@ export default function ProfilePage() {
             {/* Left side: Favourite Mixes */}
             <div>
               <div className="flex items-center gap-2.5 mb-6">
-                <CrownIcon size={20} color="var(--gold)" />
+                <CrownIcon size={18} color="var(--gold)" />
                 <h2 className="text-xl font-bold text-gold-gradient" style={{ fontFamily: "'Playfair Display', serif" }}>
                   Мои миксы
                 </h2>
@@ -155,26 +155,26 @@ export default function ProfilePage() {
               
               {mixes.length === 0 ? (
                 <div className="card p-10 text-center shadow-premium" style={{ border: '1px solid var(--border)' }}>
-                  <span className="text-3xl block mb-3">🍃</span>
-                  <p className="text-xs" style={{ color: 'var(--text-muted)' }}>У вас пока нет сохраненных миксов</p>
+                  <span className="text-4xl block mb-3">🍃</span>
+                  <p className="text-xs font-light" style={{ color: 'var(--text-muted)' }}>У вас пока нет сохраненных миксов</p>
                 </div>
               ) : (
                 <div className="flex flex-col gap-4">
                   {mixes.map(mix => (
                     <div key={mix.id} className="card p-6 shadow-premium hover-lift" style={{ border: '1px solid var(--border)' }}>
                       <div className="flex justify-between items-start mb-3 gap-2">
-                        <h3 className="font-semibold text-sm">{mix.name}</h3>
-                        <div className="flex gap-2.5">
-                          <button onClick={() => handleOrderMix(mix)} className="text-[10px] font-bold uppercase tracking-wider border-none cursor-pointer px-3 py-1.5 rounded-lg btn-gold">Заказать</button>
+                        <h3 className="font-semibold text-xs uppercase tracking-wide">{mix.name}</h3>
+                        <div className="flex gap-2">
+                          <button onClick={() => handleOrderMix(mix)} className="text-[8px] font-bold uppercase tracking-wider border-none cursor-pointer px-3 py-1.5 rounded-lg btn-gold font-mono-utility">Заказать</button>
                           <button onClick={() => handleDeleteMix(mix.id)} className="text-xs border-none cursor-pointer p-1 rounded-lg" style={{ color: 'var(--danger)', background: 'transparent' }}>✕</button>
                         </div>
                       </div>
                       
-                      {mix.description && <p className="text-xs mb-4 leading-relaxed font-light" style={{ color: 'var(--text-secondary)' }}>{mix.description}</p>}
+                      {mix.description && <p className="text-xs mb-4 leading-relaxed font-light font-mono-utility" style={{ color: 'var(--text-secondary)' }}>{mix.description}</p>}
                       
-                      <div className="flex flex-wrap gap-2 pt-3" style={{ borderTop: '1px solid var(--border)' }}>
+                      <div className="flex flex-wrap gap-2 pt-3 font-mono-utility" style={{ borderTop: '1px solid var(--border)' }}>
                         {mix.items.map((i: any) => (
-                          <span key={i.id} className="text-[10px] px-2.5 py-0.5 rounded-full font-medium" style={{ background: 'rgba(255,255,255,0.02)', color: 'var(--text-secondary)', border: '1px solid var(--border)' }}>
+                          <span key={i.id} className="text-[9px] px-2.5 py-0.5 rounded-full font-medium" style={{ background: 'rgba(255,255,255,0.01)', color: 'var(--text-secondary)', border: '1px solid var(--border)' }}>
                             {i.flavor.brand?.name} {i.flavor.name} ({i.grams}г)
                           </span>
                         ))}
@@ -188,7 +188,7 @@ export default function ProfilePage() {
             {/* Right side: Orders History */}
             <div>
               <div className="flex items-center gap-2.5 mb-6">
-                <OrderIcon size={20} color="var(--gold)" />
+                <OrderIcon size={18} color="var(--gold)" />
                 <h2 className="text-xl font-bold text-gold-gradient" style={{ fontFamily: "'Playfair Display', serif" }}>
                   История заказов
                 </h2>
@@ -196,37 +196,38 @@ export default function ProfilePage() {
 
               {orders.length === 0 ? (
                 <div className="card p-10 text-center shadow-premium" style={{ border: '1px solid var(--border)' }}>
-                  <span className="text-3xl block mb-3">💨</span>
-                  <p className="text-xs" style={{ color: 'var(--text-muted)' }}>История заказов пока пуста</p>
+                  <span className="text-4xl block mb-3">💨</span>
+                  <p className="text-xs font-light" style={{ color: 'var(--text-muted)' }}>История заказов пока пуста</p>
                 </div>
               ) : (
                 <div className="flex flex-col gap-4">
                   {orders.map(order => (
                     <div key={order.id} className="card p-6 shadow-premium" style={{ border: '1px solid var(--border)' }}>
-                      <div className="flex justify-between items-center mb-4">
-                        <span className="text-[10px] font-bold uppercase tracking-wider" style={{ color: 'var(--text-muted)' }}>
-                          {new Date(order.created_at).toLocaleDateString('ru-RU')} в {new Date(order.created_at).toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' })}
+                      <div className="flex justify-between items-center mb-4 font-mono-utility text-[9px]">
+                        <span style={{ color: 'var(--text-muted)' }} className="font-bold">
+                          {new Date(order.created_at).toLocaleDateString('ru-RU')} • {new Date(order.created_at).toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' })}
                         </span>
                         
-                        <span className="text-[9px] px-2.5 py-0.5 rounded-full font-bold tracking-wider" style={{
-                          background: order.status === 'completed' ? 'rgba(52,199,89,0.1)' : order.status === 'cancelled' ? 'rgba(255,59,48,0.1)' : 'rgba(217,178,130,0.1)',
-                          color: order.status === 'completed' ? 'var(--success)' : order.status === 'cancelled' ? 'var(--danger)' : 'var(--gold)'
+                        <span className="px-2.5 py-0.5 rounded-full font-bold tracking-wider" style={{
+                          background: order.status === 'completed' ? 'rgba(129,199,132,0.08)' : order.status === 'cancelled' ? 'rgba(229,115,115,0.08)' : 'rgba(212,165,116,0.08)',
+                          color: order.status === 'completed' ? 'var(--success)' : order.status === 'cancelled' ? 'var(--danger)' : 'var(--gold)',
+                          border: `1px solid ${order.status === 'completed' ? 'rgba(129,199,132,0.15)' : order.status === 'cancelled' ? 'rgba(229,115,115,0.15)' : 'var(--border)'}`
                         }}>
                           {STATUS_EMOJI[order.status]} {STATUS_LABELS[order.status]}
                         </span>
                       </div>
 
                       <div className="mb-4">
-                        <span className="text-[9px] uppercase tracking-wider font-bold block mb-1" style={{ color: 'var(--text-muted)' }}>Микс кальяна:</span>
+                        <span className="text-[8px] uppercase tracking-wider font-bold block mb-1 font-mono-utility" style={{ color: 'var(--text-muted)' }}>Кальянная смесь:</span>
                         <p className="text-xs leading-relaxed font-light">
                           {order.items?.map(i => `${i.flavor?.brand?.name} ${i.flavor?.name} (${i.grams}г)`).join(', ')}
                         </p>
                       </div>
 
-                      <div className="flex justify-between items-center text-xs pt-3" style={{ borderTop: '1px solid var(--border)', color: 'var(--text-secondary)' }}>
-                        <span className="font-light">База: {order.liquid?.icon} {order.liquid?.name}</span>
+                      <div className="flex justify-between items-center text-xs pt-3 font-mono-utility" style={{ borderTop: '1px solid var(--border)', color: 'var(--text-secondary)' }}>
+                        <span className="font-light">Колба: {order.liquid?.icon} {order.liquid?.name}</span>
                         <span className="font-bold" style={{ color: 'var(--gold)' }}>
-                          {order.total_price > 0 ? `${order.total_price}₽` : 'Цена в расчете'}
+                          {order.total_price > 0 ? `${order.total_price}₽` : 'В расчете'}
                         </span>
                       </div>
                     </div>

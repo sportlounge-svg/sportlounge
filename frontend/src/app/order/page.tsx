@@ -187,39 +187,43 @@ export default function CreateOrderPage() {
   return (
     <>
       <Header />
-      <main className="pt-24 pb-16 min-h-screen">
-        <div className="max-w-5xl mx-auto px-4 pt-4">
+      <main className="pt-24 pb-16 min-h-screen relative overflow-hidden smoke-bg">
+        {/* Glow */}
+        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full filter blur-[150px] opacity-[0.04] pointer-events-none"
+          style={{ background: 'radial-gradient(circle, var(--gold) 0%, transparent 70%)' }} />
+
+        <div className="max-w-5xl mx-auto px-4 pt-6 relative z-10 animate-fade-in">
           <h1 className="text-4xl font-bold text-center mb-2 text-gold-gradient tracking-wide" style={{ fontFamily: "'Playfair Display', serif" }}>
             Заказ кальяна
           </h1>
-          <p className="text-center mb-12 text-xs uppercase tracking-[0.2em]" style={{ color: 'var(--text-muted)' }}>
+          <p className="text-center mb-10 text-xs uppercase tracking-[0.2em]" style={{ color: 'var(--text-muted)' }}>
             Индивидуальный подбор вкусовой гаммы
           </p>
 
-          {/* Progress stepper */}
-          <div className="flex items-center justify-center gap-1.5 mb-14">
-            {['Данные', 'Микс', 'Жидкость', 'Подтверждение'].map((label, i) => (
+          {/* Progress Stepper */}
+          <div className="flex flex-wrap items-center justify-center gap-1.5 mb-12 font-mono-utility text-[10px]">
+            {['Данные', 'Микс', 'Жидкость', 'Проверка'].map((label, i) => (
               <div key={i} className="flex items-center gap-1.5">
-                <div className="flex items-center gap-2 px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all duration-500" style={{
-                  background: step > i + 1 ? 'rgba(52,199,89,0.06)' : step === i + 1 ? 'rgba(217,178,130,0.08)' : 'rgba(255,255,255,0.01)',
-                  color: step > i + 1 ? 'var(--success)' : step === i + 1 ? 'var(--gold)' : 'var(--text-muted)',
-                  border: `1px solid ${step === i + 1 ? 'rgba(217,178,130,0.2)' : 'var(--border)'}`,
+                <div className="flex items-center gap-2 px-4 py-2 rounded-full font-bold uppercase tracking-wider transition-all duration-300" style={{
+                  background: step > i + 1 ? 'rgba(129,199,132,0.06)' : step === i + 1 ? 'rgba(212,165,116,0.06)' : 'rgba(255,255,255,0.01)',
+                  color: step > i + 1 ? 'var(--success)' : step === i + 1 ? 'var(--gold-light)' : 'var(--text-muted)',
+                  border: `1px solid ${step === i + 1 ? 'var(--gold)' : 'var(--border)'}`,
                 }}>
                   <span className="w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold" style={{
-                    background: step > i + 1 ? 'var(--success)' : step === i + 1 ? 'var(--gold)' : 'rgba(255,255,255,0.04)',
+                    background: step > i + 1 ? 'var(--success)' : step === i + 1 ? 'var(--gold)' : 'rgba(255,255,255,0.03)',
                     color: step >= i + 1 ? '#060608' : 'var(--text-muted)',
                   }}>
                     {step > i + 1 ? '✓' : i + 1}
                   </span>
-                  <span className="hidden sm:inline">{label}</span>
+                  <span>{label}</span>
                 </div>
-                {i < 3 && <div className="w-6 h-px" style={{ background: step > i + 1 ? 'var(--success)' : 'var(--border)' }} />}
+                {i < 3 && <div className="w-4 sm:w-6 h-px" style={{ background: step > i + 1 ? 'var(--success)' : 'var(--border)' }} />}
               </div>
             ))}
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {/* Main content */}
+            {/* Main Content Area */}
             <div className="lg:col-span-2">
               {/* Step 1: Guest Info */}
               {step === 1 && (
@@ -227,24 +231,24 @@ export default function CreateOrderPage() {
                   <div className="flex justify-between items-center mb-8">
                     <h2 className="text-xl font-semibold" style={{ color: 'var(--gold-light)' }}>Ваши данные</h2>
                     {!session && (
-                      <button onClick={() => router.push('/login')} className="text-[10px] font-bold uppercase tracking-wider px-3.5 py-2 rounded-lg btn-outline cursor-pointer">
-                        Войти через Google
+                      <button onClick={() => router.push('/login')} className="px-4 py-2 text-[9px] font-bold uppercase tracking-wider rounded-lg btn-outline cursor-pointer">
+                        Авторизоваться
                       </button>
                     )}
                   </div>
                   
                   <div className="flex flex-col gap-6">
                     <div>
-                      <label className="block text-xs uppercase tracking-wider mb-2" style={{ color: 'var(--text-secondary)' }}>Имя *</label>
-                      <input className="input" placeholder="Как вас зовут?" value={guestName} onChange={(e) => setGuestName(e.target.value)} />
+                      <label className="block text-[10px] uppercase font-mono-utility tracking-wider mb-2" style={{ color: 'var(--text-secondary)' }}>Имя *</label>
+                      <input className="input text-sm" placeholder="Как вас зовут?" value={guestName} onChange={(e) => setGuestName(e.target.value)} required />
                     </div>
                     <div>
-                      <label className="block text-xs uppercase tracking-wider mb-2" style={{ color: 'var(--text-secondary)' }}>Телефон</label>
-                      <input className="input" placeholder="+7 (___) ___-__-__" value={guestPhone} onChange={(e) => setGuestPhone(e.target.value)} />
+                      <label className="block text-[10px] uppercase font-mono-utility tracking-wider mb-2" style={{ color: 'var(--text-secondary)' }}>Телефон</label>
+                      <input className="input text-sm font-mono-utility" placeholder="+7 (___) ___-__-__" value={guestPhone} onChange={(e) => setGuestPhone(e.target.value)} />
                     </div>
                     <div>
-                      <label className="block text-xs uppercase tracking-wider mb-2" style={{ color: 'var(--text-secondary)' }}>Номер стола</label>
-                      <input className="input" type="number" placeholder="Укажите номер вашего стола" value={tableNumber} onChange={(e) => setTableNumber(e.target.value)} />
+                      <label className="block text-[10px] uppercase font-mono-utility tracking-wider mb-2" style={{ color: 'var(--text-secondary)' }}>Номер стола</label>
+                      <input className="input text-sm font-mono-utility" type="number" placeholder="Укажите номер стола" value={tableNumber} onChange={(e) => setTableNumber(e.target.value)} />
                     </div>
                   </div>
                 </div>
@@ -255,7 +259,7 @@ export default function CreateOrderPage() {
                 <div className="animate-fade-in">
                   <div className="card p-6 mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-premium" style={{ border: '1px solid var(--border)' }}>
                     <div>
-                      <h2 className="text-xl font-semibold mb-1" style={{ color: 'var(--gold-light)' }}>Соберите свой вкус</h2>
+                      <h2 className="text-lg font-semibold mb-1" style={{ color: 'var(--gold-light)' }}>Состав смеси</h2>
                       <p className="text-xs font-light" style={{ color: 'var(--text-muted)' }}>Выберите вкусы табака и настройте идеальные пропорции</p>
                     </div>
 
@@ -263,7 +267,7 @@ export default function CreateOrderPage() {
                       <button
                         onClick={handleGenerateAiMix}
                         disabled={aiLoading}
-                        className="flex items-center gap-2 px-5 py-3 rounded-xl font-bold border-none cursor-pointer transition-all duration-300 btn-gold animate-glow text-[10px] uppercase tracking-wider"
+                        className="flex items-center gap-2 px-5 py-3 rounded-xl font-bold border-none cursor-pointer transition-all duration-300 btn-gold animate-glow text-[9px]"
                       >
                         <SparklesIcon size={12} color="#060608" />
                         {aiLoading ? 'Смешиваем...' : 'ИИ-миксолог'}
@@ -272,7 +276,7 @@ export default function CreateOrderPage() {
                   </div>
 
                   {aiDescription && (
-                    <div className="card p-6 mb-8 shadow-premium" style={{ background: 'rgba(217,178,130,0.02)', border: '1px dashed var(--gold)' }}>
+                    <div className="card p-6 mb-8 shadow-premium" style={{ background: 'rgba(212,165,116,0.02)', border: '1px dashed var(--gold)' }}>
                       <div className="flex items-center gap-2 mb-3">
                         <SparklesIcon size={16} color="var(--gold)" />
                         <h4 className="text-xs uppercase tracking-wider font-bold" style={{ color: 'var(--gold)' }}>Рекомендация ИИ: {mixName}</h4>
@@ -282,9 +286,9 @@ export default function CreateOrderPage() {
                       <button
                         onClick={handleSaveMixToProfile}
                         disabled={savedMixSuccess}
-                        className="text-[10px] font-bold uppercase tracking-wider px-4 py-2 rounded-lg border-none cursor-pointer transition-all"
+                        className="text-[9px] font-bold uppercase tracking-wider px-4 py-2 rounded-lg border-none cursor-pointer font-mono-utility"
                         style={{
-                          background: savedMixSuccess ? 'rgba(52,199,89,0.1)' : 'var(--gold)',
+                          background: savedMixSuccess ? 'rgba(129,199,132,0.1)' : 'var(--gold)',
                           color: savedMixSuccess ? 'var(--success)' : '#060608'
                         }}
                       >
@@ -300,7 +304,7 @@ export default function CreateOrderPage() {
                   ) : (
                     brands.map((brand) => (
                       <div key={brand.id} className="mb-8">
-                        <h3 className="text-xs font-bold mb-4 uppercase tracking-[0.2em]" style={{ color: 'var(--gold-dark)' }}>
+                        <h3 className="text-[10px] font-bold mb-4 uppercase tracking-[0.2em] font-mono-utility" style={{ color: 'var(--gold-dark)' }}>
                           {brand.name}
                         </h3>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -312,17 +316,17 @@ export default function CreateOrderPage() {
                                 onClick={() => inMix ? removeFromMix(flavor.id) : addToMix(flavor.id, flavor.name, brand.name)}
                                 className="text-left p-5 rounded-xl border-none cursor-pointer transition-all duration-300 shadow-premium"
                                 style={{
-                                  background: inMix ? 'rgba(217,178,130,0.06)' : 'var(--bg-card)',
+                                  background: inMix ? 'rgba(212,165,116,0.04)' : 'var(--bg-card)',
                                   border: `1px solid ${inMix ? 'var(--gold)' : 'var(--border)'}`,
                                   color: 'var(--text-primary)',
                                 }}
                               >
                                 <div className="flex items-center justify-between">
-                                  <span className="font-semibold text-sm">{flavor.name}</span>
+                                  <span className="font-semibold text-xs uppercase tracking-wide">{flavor.name}</span>
                                   {inMix ? (
-                                    <span className="text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full" style={{ background: 'var(--gold)', color: '#060608' }}>✓ В миксе</span>
+                                    <span className="text-[8px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full font-mono-utility" style={{ background: 'var(--gold)', color: '#060608' }}>✓ В миксе</span>
                                   ) : (
-                                    <span className="text-[9px] font-bold uppercase tracking-wider" style={{ color: 'var(--text-muted)' }}>+ Добавить</span>
+                                    <span className="text-[8px] font-bold uppercase tracking-wider font-mono-utility" style={{ color: 'var(--text-muted)' }}>+ Добавить</span>
                                   )}
                                 </div>
                                 {flavor.description && (
@@ -349,20 +353,19 @@ export default function CreateOrderPage() {
                       <button
                         key={liquid.id}
                         onClick={() => setSelectedLiquid(liquid.id)}
-                        className="p-6 rounded-2xl text-center transition-all duration-500 border-none cursor-pointer flex flex-col items-center justify-center gap-3 shadow-premium"
+                        className="p-6 rounded-2xl text-center transition-all duration-300 border-none cursor-pointer flex flex-col items-center justify-center gap-3 shadow-premium"
                         style={{
-                          background: selectedLiquid === liquid.id ? 'rgba(217,178,130,0.05)' : 'var(--bg-card)',
+                          background: selectedLiquid === liquid.id ? 'rgba(212,165,116,0.03)' : 'var(--bg-card)',
                           border: `1.5px solid ${selectedLiquid === liquid.id ? 'var(--gold)' : 'var(--border)'}`,
                           color: 'var(--text-primary)',
-                          transform: selectedLiquid === liquid.id ? 'scale(1.02)' : 'scale(1)',
                         }}
                       >
-                        <div className="transition-transform duration-500" style={{ transform: selectedLiquid === liquid.id ? 'scale(1.1)' : 'scale(1)' }}>
+                        <div className="transition-transform duration-300" style={{ transform: selectedLiquid === liquid.id ? 'scale(1.08)' : 'scale(1)' }}>
                           {LIQUID_ICONS[liquid.name] || <span>💧</span>}
                         </div>
-                        <span className="font-semibold text-xs uppercase tracking-wider block mt-1">{liquid.name}</span>
+                        <span className="font-bold text-[10px] uppercase tracking-wider block mt-1 font-mono-utility">{liquid.name}</span>
                         {liquid.description && (
-                          <span className="text-[10px] block font-light" style={{ color: 'var(--text-muted)' }}>{liquid.description}</span>
+                          <span className="text-[9px] block font-light leading-snug mt-1" style={{ color: 'var(--text-muted)' }}>{liquid.description}</span>
                         )}
                       </button>
                     ))}
@@ -377,43 +380,43 @@ export default function CreateOrderPage() {
 
                   <div className="flex flex-col gap-5">
                     <div className="p-5 rounded-xl" style={{ background: 'rgba(255,255,255,0.01)', border: '1px solid var(--border)' }}>
-                      <span className="text-[9px] uppercase tracking-wider font-bold" style={{ color: 'var(--text-muted)' }}>Гость</span>
+                      <span className="text-[9px] uppercase tracking-wider font-bold font-mono-utility" style={{ color: 'var(--text-muted)' }}>Гость</span>
                       <p className="font-semibold text-sm mt-1">{guestName}</p>
-                      {guestPhone && <p className="text-xs mt-0.5" style={{ color: 'var(--text-secondary)' }}>{guestPhone}</p>}
-                      {tableNumber && <p className="text-xs mt-0.5" style={{ color: 'var(--text-secondary)' }}>Стол #{tableNumber}</p>}
+                      {guestPhone && <p className="text-xs mt-0.5 font-mono-utility" style={{ color: 'var(--text-secondary)' }}>{guestPhone}</p>}
+                      {tableNumber && <p className="text-xs mt-0.5 font-mono-utility" style={{ color: 'var(--text-secondary)' }}>Стол #{tableNumber}</p>}
                     </div>
 
                     <div className="p-5 rounded-xl" style={{ background: 'rgba(255,255,255,0.01)', border: '1px solid var(--border)' }}>
-                      <span className="text-[9px] uppercase tracking-wider font-bold" style={{ color: 'var(--text-muted)' }}>Микс ({totalGrams}г)</span>
-                      <div className="mt-2 flex flex-col gap-1.5">
+                      <span className="text-[9px] uppercase tracking-wider font-bold font-mono-utility" style={{ color: 'var(--text-muted)' }}>Микс ({totalGrams}г)</span>
+                      <div className="mt-2 flex flex-col gap-1.5 font-mono-utility text-xs">
                         {mix.map((m) => (
-                          <p key={m.flavor_id} className="text-xs">
-                            <span style={{ color: 'var(--gold)' }} className="font-semibold">{m.brand}</span> {m.name} — <span style={{ color: 'var(--gold-light)' }} className="font-semibold">{m.grams}г</span>
+                          <p key={m.flavor_id} className="font-light">
+                            <span style={{ color: 'var(--gold)' }} className="font-sans font-semibold">{m.brand}</span> {m.name} — <span style={{ color: 'var(--gold-light)' }} className="font-semibold">{m.grams}г</span>
                           </p>
                         ))}
                       </div>
                     </div>
 
                     <div className="p-5 rounded-xl" style={{ background: 'rgba(255,255,255,0.01)', border: '1px solid var(--border)' }}>
-                      <span className="text-[9px] uppercase tracking-wider font-bold" style={{ color: 'var(--text-muted)' }}>База</span>
-                      <p className="font-semibold text-xs uppercase tracking-wider mt-1">
+                      <span className="text-[9px] uppercase tracking-wider font-bold font-mono-utility" style={{ color: 'var(--text-muted)' }}>База колбы</span>
+                      <p className="font-semibold text-[10px] uppercase tracking-wider mt-1 font-mono-utility">
                         {liquids.find((l) => l.id === selectedLiquid)?.name}
                       </p>
                     </div>
 
                     <div>
-                      <label className="block text-xs uppercase tracking-wider mb-2" style={{ color: 'var(--text-secondary)' }}>Пожелания мастеру</label>
+                      <label className="block text-[10px] uppercase font-mono-utility tracking-wider mb-2" style={{ color: 'var(--text-secondary)' }}>Пожелания мастеру</label>
                       <textarea
-                        className="input"
+                        className="input text-xs"
                         placeholder="Крепость, жаростойкость чаши, скорость подачи и т.д."
                         rows={3}
                         value={notes}
                         onChange={(e) => setNotes(e.target.value)}
-                        style={{ resize: 'vertical' }}
+                        style={{ resize: 'none' }}
                       />
                     </div>
 
-                    <p className="text-xs text-center" style={{ color: 'var(--text-muted)' }}>
+                    <p className="text-[10px] text-center italic mt-2" style={{ color: 'var(--text-muted)' }}>
                       💰 Стоимость пробивается администратором индивидуально после подачи
                     </p>
                   </div>
@@ -423,15 +426,15 @@ export default function CreateOrderPage() {
               {/* Navigation buttons */}
               <div className="flex justify-between mt-10">
                 {step > 1 ? (
-                  <button onClick={() => setStep(step - 1)} className="btn-outline text-xs font-bold">← Назад</button>
+                  <button onClick={() => setStep(step - 1)} className="btn-outline text-xs font-bold font-mono-utility">← Назад</button>
                 ) : <div />}
                 {step < 4 ? (
-                  <button onClick={() => setStep(step + 1)} disabled={!canProceed()} className="btn-gold text-xs font-bold"
+                  <button onClick={() => setStep(step + 1)} disabled={!canProceed()} className="btn-gold text-xs font-bold font-mono-utility"
                     style={{ opacity: canProceed() ? 1 : 0.4, cursor: canProceed() ? 'pointer' : 'not-allowed' }}>
                     Далее →
                   </button>
                 ) : (
-                  <button onClick={handleSubmit} disabled={submitting} className="btn-gold text-xs font-bold animate-glow">
+                  <button onClick={handleSubmit} disabled={submitting} className="btn-gold text-xs font-bold font-mono-utility animate-glow">
                     {submitting ? 'Отправка...' : 'Отправить заказ'}
                   </button>
                 )}
@@ -443,25 +446,25 @@ export default function CreateOrderPage() {
               <div className="card p-6 sticky top-28 shadow-premium" style={{ border: '1px solid var(--border)' }}>
                 <div className="flex justify-between items-center mb-5">
                   <h3 className="text-base font-semibold tracking-wide" style={{ color: 'var(--gold-light)', fontFamily: "'Playfair Display', serif" }}>
-                    Ваш микс
+                    Ваша чаша
                   </h3>
                   {mix.length > 0 && (
-                    <button onClick={handleSaveMixToProfile} className="text-[10px] uppercase font-bold tracking-wider border-none cursor-pointer" style={{ background: 'transparent', color: 'var(--gold)' }}>
+                    <button onClick={handleSaveMixToProfile} className="text-[9px] uppercase font-bold tracking-wider border-none cursor-pointer font-mono-utility" style={{ background: 'transparent', color: 'var(--gold)' }}>
                       💾 Сохранить
                     </button>
                   )}
                 </div>
                 
                 {mix.length === 0 ? (
-                  <p className="text-xs font-light" style={{ color: 'var(--text-muted)' }}>Выберите вкусы табака в списке слева, чтобы составить микс.</p>
+                  <p className="text-xs font-light leading-relaxed" style={{ color: 'var(--text-muted)' }}>Выберите вкусы табака в списке слева, чтобы составить микс.</p>
                 ) : (
-                  <div className="flex flex-col gap-4">
+                  <div className="flex flex-col gap-4 font-mono-utility">
                     {mix.map((m) => (
                       <div key={m.flavor_id} className="p-3.5 rounded-xl" style={{ background: 'rgba(255,255,255,0.01)', border: '1px solid var(--border)' }}>
                         <div className="flex items-center justify-between mb-2">
                           <div>
-                            <span className="text-[9px] uppercase tracking-wider font-bold" style={{ color: 'var(--gold-dark)' }}>{m.brand}</span>
-                            <p className="text-xs font-medium">{m.name}</p>
+                            <span className="text-[8px] uppercase tracking-wider font-bold" style={{ color: 'var(--gold-dark)' }}>{m.brand}</span>
+                            <p className="text-xs font-medium font-sans">{m.name}</p>
                           </div>
                           <button onClick={() => removeFromMix(m.flavor_id)} className="text-xs border-none cursor-pointer"
                             style={{ background: 'transparent', color: 'var(--danger)' }}>✕</button>
@@ -476,12 +479,12 @@ export default function CreateOrderPage() {
                             className="flex-1 cursor-pointer"
                             style={{ accentColor: 'var(--gold)' }}
                           />
-                          <span className="text-xs font-semibold w-8 text-right" style={{ color: 'var(--gold)' }}>{m.grams}г</span>
+                          <span className="text-[10px] font-semibold w-8 text-right" style={{ color: 'var(--gold)' }}>{m.grams}г</span>
                         </div>
                       </div>
                     ))}
                     <div className="pt-4 mt-2" style={{ borderTop: '1px solid var(--border)' }}>
-                      <div className="flex justify-between text-xs font-bold uppercase tracking-wider">
+                      <div className="flex justify-between text-[10px] font-bold uppercase tracking-wider">
                         <span style={{ color: 'var(--text-secondary)' }}>Общий вес</span>
                         <span style={{ color: 'var(--gold)' }}>{totalGrams}г</span>
                       </div>

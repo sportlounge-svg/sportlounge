@@ -48,49 +48,53 @@ export default function Header() {
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 no-underline group">
-            <HookahIcon size={26} color="var(--gold)" className="transition-transform duration-500 group-hover:rotate-12" />
-            <span className="text-lg font-semibold tracking-[0.25em] text-gold-gradient" style={{ fontFamily: "'Playfair Display', serif" }}>
+            <HookahIcon size={24} color="var(--gold)" className="transition-transform duration-500 group-hover:rotate-12" />
+            <span className="text-base font-semibold tracking-[0.2em] text-gold-gradient" style={{ fontFamily: "'Playfair Display', serif" }}>
               SPORT LOUNGE
             </span>
           </Link>
 
           {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-1">
-            {NAV_ITEMS.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="no-underline px-4 py-2 rounded-lg text-xs font-semibold uppercase tracking-wider transition-all duration-300"
-                style={{
-                  color: pathname === item.href ? 'var(--gold)' : 'var(--text-secondary)',
-                  background: pathname === item.href ? 'rgba(217, 178, 130, 0.06)' : 'transparent',
-                }}
-              >
-                {item.label}
-              </Link>
-            ))}
+          <nav className="hidden md:flex items-center gap-1.5 font-mono-utility text-[10px]">
+            {NAV_ITEMS.map((item) => {
+              const isActive = pathname === item.href || (item.href !== '/' && pathname?.startsWith(item.href));
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="no-underline px-4 py-2 rounded-lg font-bold uppercase transition-all duration-300"
+                  style={{
+                    color: isActive ? 'var(--gold-light)' : 'var(--text-secondary)',
+                    background: isActive ? 'rgba(212, 165, 116, 0.05)' : 'transparent',
+                    border: isActive ? '1px solid rgba(212, 165, 116, 0.15)' : '1px solid transparent'
+                  }}
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
             
             {session ? (
-              <Link href="/profile" className="flex items-center gap-2 no-underline px-4 py-2 rounded-lg text-xs font-semibold uppercase tracking-wider transition-all duration-300 ml-4"
+              <Link href="/profile" className="flex items-center gap-2 no-underline px-4 py-2 rounded-lg font-bold uppercase transition-all duration-300 ml-4"
                 style={{
-                  color: pathname === '/profile' ? 'var(--gold)' : 'var(--text-secondary)',
-                  background: pathname === '/profile' ? 'rgba(217, 178, 130, 0.06)' : 'transparent',
-                  border: '1px solid rgba(217, 178, 130, 0.15)'
+                  color: pathname === '/profile' ? 'var(--gold-light)' : 'var(--text-secondary)',
+                  background: pathname === '/profile' ? 'rgba(212, 165, 116, 0.05)' : 'transparent',
+                  border: '1px solid rgba(212, 165, 116, 0.15)'
                 }}>
                 {avatar ? (
-                  <img src={avatar} alt="Profile" className="w-5 h-5 rounded-full border" style={{ borderColor: 'var(--border)' }} />
+                  <img src={avatar} alt="Profile" className="w-4 h-4 rounded-full border" style={{ borderColor: 'var(--border)' }} />
                 ) : (
                   <span>👤</span>
                 )}
                 Профиль
               </Link>
             ) : (
-              <Link href="/login" className="no-underline ml-4 btn-gold btn-sm px-4 py-2 rounded-lg text-xs font-semibold uppercase tracking-wider" style={{ color: '#060608' }}>
+              <Link href="/login" className="no-underline ml-4 btn-gold btn-sm px-4 py-2 rounded-lg font-bold" style={{ color: '#060608' }}>
                 Войти
               </Link>
             )}
 
-            <Link href="/admin" className="no-underline ml-2 btn-outline btn-sm px-4 py-2 rounded-lg text-xs font-semibold uppercase tracking-wider" style={{ fontSize: '0.75rem' }}>
+            <Link href="/admin" className="no-underline ml-2 btn-outline btn-sm px-4 py-2 rounded-lg font-bold" style={{ fontSize: '0.65rem' }}>
               Админ
             </Link>
           </nav>
@@ -122,38 +126,42 @@ export default function Header() {
       {/* Mobile drawer */}
       {isOpen && (
         <div className="md:hidden glass-strong animate-slide-up" style={{ borderTop: '1px solid var(--border)' }}>
-          <nav className="px-4 py-4 flex flex-col gap-2">
-            {NAV_ITEMS.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                onClick={() => setIsOpen(false)}
-                className="no-underline px-4 py-3 rounded-lg text-xs font-semibold uppercase tracking-wider transition-all"
-                style={{
-                  color: pathname === item.href ? 'var(--gold)' : 'var(--text-secondary)',
-                  background: pathname === item.href ? 'rgba(217, 178, 130, 0.06)' : 'transparent',
-                }}
-              >
-                {item.label}
-              </Link>
-            ))}
+          <nav className="px-4 py-4 flex flex-col gap-2 font-mono-utility text-[10px]">
+            {NAV_ITEMS.map((item) => {
+              const isActive = pathname === item.href || (item.href !== '/' && pathname?.startsWith(item.href));
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  onClick={() => setIsOpen(false)}
+                  className="no-underline px-4 py-3 rounded-lg font-bold uppercase transition-all"
+                  style={{
+                    color: isActive ? 'var(--gold-light)' : 'var(--text-secondary)',
+                    background: isActive ? 'rgba(212, 165, 116, 0.05)' : 'transparent',
+                    border: isActive ? '1px solid rgba(212, 165, 116, 0.15)' : '1px solid transparent'
+                  }}
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
             
             {session ? (
-              <Link href="/profile" onClick={() => setIsOpen(false)} className="no-underline px-4 py-3 rounded-lg text-xs font-semibold uppercase tracking-wider transition-all text-center"
+              <Link href="/profile" onClick={() => setIsOpen(false)} className="no-underline px-4 py-3 rounded-lg font-bold uppercase transition-all text-center"
                 style={{
-                  color: 'var(--gold)',
-                  background: 'rgba(217, 178, 130, 0.06)',
-                  border: '1px solid rgba(217, 178, 130, 0.15)'
+                  color: 'var(--gold-light)',
+                  background: 'rgba(212, 165, 116, 0.05)',
+                  border: '1px solid rgba(212, 165, 116, 0.15)'
                 }}>
                 Профиль
               </Link>
             ) : (
-              <Link href="/login" onClick={() => setIsOpen(false)} className="no-underline btn-gold text-center py-3 rounded-lg text-xs font-semibold uppercase tracking-wider" style={{ color: '#060608' }}>
+              <Link href="/login" onClick={() => setIsOpen(false)} className="no-underline btn-gold text-center py-3 rounded-lg font-bold" style={{ color: '#060608' }}>
                 Войти
               </Link>
             )}
 
-            <Link href="/admin" onClick={() => setIsOpen(false)} className="no-underline btn-outline btn-sm text-center mt-2 text-xs font-semibold uppercase tracking-wider">
+            <Link href="/admin" onClick={() => setIsOpen(false)} className="no-underline btn-outline btn-sm text-center mt-2 font-bold">
               Админ-панель
             </Link>
           </nav>

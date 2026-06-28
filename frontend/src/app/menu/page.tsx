@@ -14,8 +14,8 @@ const CATEGORIES = [
   { key: 'citrus', label: 'Цитрусовые' },
   { key: 'sweet', label: 'Сладкие' },
   { key: 'mint', label: 'Освежающие' },
-  { key: 'signature', label: 'Фирменные миксы' },
-  { key: 'authors', label: 'Авторские миксы' }
+  { key: 'signature', label: 'Фирменные' },
+  { key: 'authors', label: 'Авторские' }
 ];
 
 const SIGNATURE_MIXES = [
@@ -118,11 +118,15 @@ export default function MenuPage() {
   return (
     <>
       <Header />
-      <main className="pt-24 pb-16 min-h-screen">
-        <div className="max-w-6xl mx-auto px-4">
+      <main className="pt-24 pb-16 min-h-screen relative overflow-hidden smoke-bg">
+        {/* Glow */}
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full filter blur-[150px] opacity-[0.05] pointer-events-none"
+          style={{ background: 'radial-gradient(circle, var(--gold) 0%, transparent 70%)' }} />
+
+        <div className="max-w-6xl mx-auto px-4 relative z-10">
           {/* Header */}
-          <div className="text-center mb-16 pt-8">
-            <h1 className="text-4xl sm:text-5xl font-bold mb-4 text-gold-gradient tracking-wide" style={{ fontFamily: "'Playfair Display', serif" }}>
+          <div className="text-center mb-12 pt-6">
+            <h1 className="text-4xl sm:text-5xl font-bold mb-3 text-gold-gradient tracking-wide" style={{ fontFamily: "'Playfair Display', serif" }}>
               Карта вкусов
             </h1>
             <p className="text-xs uppercase tracking-[0.2em]" style={{ color: 'var(--text-muted)' }}>
@@ -138,17 +142,15 @@ export default function MenuPage() {
                 placeholder="🔍 Поиск по вкусам и брендам..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                className="input text-center text-xs uppercase tracking-wider"
+                className="input text-center text-xs uppercase tracking-wider font-mono-utility"
               />
             </div>
           )}
 
           {/* Category Filter */}
-          <div className="flex flex-wrap justify-center gap-2.5 mb-16">
+          <div className="flex flex-wrap justify-center gap-2 mb-14 font-mono-utility text-[9px]">
             {CATEGORIES.map((cat) => {
-              const isSpecial = cat.key === 'signature' || cat.key === 'authors';
               const isActive = category === cat.key;
-              
               return (
                 <button
                   key={cat.key}
@@ -156,16 +158,15 @@ export default function MenuPage() {
                     setCategory(cat.key);
                     setSearch('');
                   }}
-                  className="px-5 py-2.5 rounded-full text-xxs font-bold uppercase tracking-wider transition-all duration-500 border-none cursor-pointer flex items-center gap-2"
+                  className="px-4.5 py-2.5 rounded-full font-bold uppercase tracking-wider transition-all duration-300 border-none cursor-pointer flex items-center gap-1.5"
                   style={{
-                    background: isActive ? 'var(--gold)' : 'rgba(255,255,255,0.02)',
+                    background: isActive ? 'var(--gold)' : 'rgba(255,255,255,0.01)',
                     color: isActive ? '#060608' : 'var(--text-secondary)',
                     border: `1px solid ${isActive ? 'var(--gold)' : 'var(--border)'}`,
-                    boxShadow: isActive ? '0 5px 15px rgba(217, 178, 130, 0.2)' : 'none'
                   }}
                 >
-                  {cat.key === 'signature' && <CrownIcon size={12} color={isActive ? '#060608' : 'var(--gold)'} />}
-                  {cat.key === 'authors' && <PenIcon size={12} color={isActive ? '#060608' : 'var(--gold)'} />}
+                  {cat.key === 'signature' && <CrownIcon size={11} color={isActive ? '#060608' : 'var(--gold)'} />}
+                  {cat.key === 'authors' && <PenIcon size={11} color={isActive ? '#060608' : 'var(--gold)'} />}
                   {cat.label}
                 </button>
               );
@@ -176,7 +177,7 @@ export default function MenuPage() {
           {loading && showTobacco && (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {[...Array(6)].map((_, i) => (
-                <div key={i} className="skeleton h-32 rounded-2xl" />
+                <div key={i} className="skeleton h-32 rounded-2xl animate-pulse" />
               ))}
             </div>
           )}
@@ -185,24 +186,24 @@ export default function MenuPage() {
           {category === 'signature' && (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 animate-fade-in">
               {SIGNATURE_MIXES.map(mix => (
-                <div key={mix.id} className="card p-8 flex flex-col justify-between shadow-premium shadow-premium-hover" style={{ border: '1px solid var(--border)' }}>
+                <div key={mix.id} className="card p-8 flex flex-col justify-between shadow-premium" style={{ border: '1px solid var(--border)' }}>
                   <div>
                     <div className="flex justify-between items-start mb-4">
                       <h3 className="text-xl font-bold text-gold-gradient" style={{ fontFamily: "'Playfair Display', serif" }}>
                         {mix.name}
                       </h3>
-                      <span className="text-[10px] px-3 py-1 rounded-full uppercase font-bold tracking-wider" style={{ background: 'rgba(217,178,130,0.05)', color: 'var(--gold)', border: '1px solid var(--border)' }}>
+                      <span className="text-[9px] px-3 py-1 rounded-full uppercase font-bold tracking-wider font-mono-utility" style={{ background: 'rgba(212,165,116,0.05)', color: 'var(--gold)', border: '1px solid var(--border)' }}>
                         {mix.strength}
                       </span>
                     </div>
-                    <p className="text-sm mb-6 leading-relaxed font-light" style={{ color: 'var(--text-secondary)' }}>{mix.description}</p>
+                    <p className="text-xs mb-6 leading-relaxed font-light" style={{ color: 'var(--text-secondary)' }}>{mix.description}</p>
                     
                     <div className="mb-8">
-                      <h4 className="text-[10px] uppercase tracking-[0.15em] mb-3 font-semibold" style={{ color: 'var(--text-muted)' }}>Состав микса:</h4>
+                      <h4 className="text-[9px] uppercase tracking-[0.15em] mb-3 font-semibold" style={{ color: 'var(--text-muted)' }}>Состав микса:</h4>
                       <div className="flex flex-col gap-2">
                         {mix.ingredients.map((ing, idx) => (
-                          <div key={idx} className="flex justify-between text-xs py-1.5" style={{ borderBottom: '1px solid rgba(217,178,130,0.03)' }}>
-                            <span><strong style={{ color: 'var(--gold-light)', fontWeight: 500 }}>{ing.brand}</strong> {ing.name}</span>
+                          <div key={idx} className="flex justify-between text-xs py-1.5 font-mono-utility" style={{ borderBottom: '1px solid rgba(212,165,116,0.04)' }}>
+                            <span className="font-light"><strong style={{ color: 'var(--gold-light)', fontWeight: 500 }} className="font-sans">{ing.brand}</strong> {ing.name}</span>
                             <span style={{ color: 'var(--text-muted)' }}>{ing.share}</span>
                           </div>
                         ))}
@@ -221,24 +222,24 @@ export default function MenuPage() {
           {category === 'authors' && (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 animate-fade-in">
               {AUTHORS_MIXES.map(mix => (
-                <div key={mix.id} className="card p-8 flex flex-col justify-between shadow-premium shadow-premium-hover" style={{ border: '1px solid var(--border)' }}>
+                <div key={mix.id} className="card p-8 flex flex-col justify-between shadow-premium" style={{ border: '1px solid var(--border)' }}>
                   <div>
                     <div className="flex justify-between items-start mb-4">
                       <h3 className="text-xl font-bold text-gold-gradient" style={{ fontFamily: "'Playfair Display', serif" }}>
                         {mix.name}
                       </h3>
-                      <span className="text-[10px] px-3 py-1 rounded-full uppercase font-bold tracking-wider" style={{ background: 'rgba(217,178,130,0.05)', color: 'var(--gold)', border: '1px solid var(--border)' }}>
+                      <span className="text-[9px] px-3 py-1 rounded-full uppercase font-bold tracking-wider font-mono-utility" style={{ background: 'rgba(212,165,116,0.05)', color: 'var(--gold)', border: '1px solid var(--border)' }}>
                         {mix.strength}
                       </span>
                     </div>
-                    <p className="text-sm mb-6 leading-relaxed font-light" style={{ color: 'var(--text-secondary)' }}>{mix.description}</p>
+                    <p className="text-xs mb-6 leading-relaxed font-light" style={{ color: 'var(--text-secondary)' }}>{mix.description}</p>
                     
                     <div className="mb-8">
-                      <h4 className="text-[10px] uppercase tracking-[0.15em] mb-3 font-semibold" style={{ color: 'var(--text-muted)' }}>Состав микса:</h4>
+                      <h4 className="text-[9px] uppercase tracking-[0.15em] mb-3 font-semibold" style={{ color: 'var(--text-muted)' }}>Состав микса:</h4>
                       <div className="flex flex-col gap-2">
                         {mix.ingredients.map((ing, idx) => (
-                          <div key={idx} className="flex justify-between text-xs py-1.5" style={{ borderBottom: '1px solid rgba(217,178,130,0.03)' }}>
-                            <span><strong style={{ color: 'var(--gold-light)', fontWeight: 500 }}>{ing.brand}</strong> {ing.name}</span>
+                          <div key={idx} className="flex justify-between text-xs py-1.5 font-mono-utility" style={{ borderBottom: '1px solid rgba(212,165,116,0.04)' }}>
+                            <span className="font-light"><strong style={{ color: 'var(--gold-light)', fontWeight: 500 }} className="font-sans">{ing.brand}</strong> {ing.name}</span>
                             <span style={{ color: 'var(--text-muted)' }}>{ing.share}</span>
                           </div>
                         ))}
@@ -255,20 +256,20 @@ export default function MenuPage() {
 
           {/* Tobacco Brands & Flavors list */}
           {showTobacco && !loading && filteredBrands.length === 0 && (
-            <div className="text-center py-20" style={{ color: 'var(--text-muted)' }}>
+            <div className="text-center py-20 animate-fade-in" style={{ color: 'var(--text-muted)' }}>
               <span className="text-5xl block mb-4">🔍</span>
-              <p className="text-lg">Вкусы не найдены</p>
+              <p className="text-sm">Вкусы не найдены</p>
             </div>
           )}
 
           {showTobacco && !loading && filteredBrands.map((brand, bi) => (
-            <div key={brand.id} className="mb-16 animate-fade-in" style={{ animationDelay: `${bi * 0.05}s`, animationFillMode: 'both' }}>
-              <div className="flex items-center gap-4 mb-6">
+            <div key={brand.id} className="mb-16 animate-fade-in" style={{ animationDelay: `${bi * 0.03}s`, animationFillMode: 'both' }}>
+              <div className="flex items-center gap-3 mb-6">
                 <h2 className="text-2xl font-bold tracking-wide" style={{ color: 'var(--gold-light)', fontFamily: "'Playfair Display', serif" }}>
                   {brand.name}
                 </h2>
                 {brand.country && (
-                  <span className="text-[10px] px-2.5 py-0.5 rounded-full uppercase font-bold tracking-wider" style={{ background: 'rgba(255,255,255,0.03)', color: 'var(--text-muted)', border: '1px solid var(--border)' }}>
+                  <span className="text-[9px] px-2.5 py-0.5 rounded-full uppercase font-bold tracking-wider font-mono-utility" style={{ background: 'rgba(255,255,255,0.02)', color: 'var(--text-muted)', border: '1px solid var(--border)' }}>
                     {brand.country}
                   </span>
                 )}
@@ -283,12 +284,12 @@ export default function MenuPage() {
                     <div key={flavor.id} className="card p-6 flex flex-col justify-between shadow-premium hover-lift" style={{ border: '1px solid var(--border)' }}>
                       <div>
                         <div className="flex items-start justify-between mb-3 gap-2">
-                          <h3 className="text-base font-semibold" style={{ color: 'var(--text-primary)' }}>
+                          <h3 className="text-sm font-semibold" style={{ color: 'var(--text-primary)' }}>
                             {flavor.name}
                           </h3>
-                          <div className="flex items-center gap-1.5 flex-shrink-0">
+                          <div className="flex items-center gap-1.5 flex-shrink-0 font-mono-utility">
                             <div className="w-1.5 h-1.5 rounded-full" style={{ background: stockColor }} />
-                            <span className="text-[10px] font-bold" style={{ color: 'var(--text-muted)' }}>
+                            <span className="text-[9px] font-bold" style={{ color: 'var(--text-muted)' }}>
                               {Math.round(flavor.stock_grams)}г
                             </span>
                           </div>
@@ -301,8 +302,8 @@ export default function MenuPage() {
                         )}
                       </div>
 
-                      <span className="badge text-[9px] w-max font-bold tracking-wider" style={{
-                        background: 'rgba(217,178,130,0.05)',
+                      <span className="badge text-[8px] w-max font-bold tracking-wider font-mono-utility" style={{
+                        background: 'rgba(212,165,116,0.02)',
                         color: 'var(--gold)',
                         border: '1px solid var(--border)'
                       }}>
