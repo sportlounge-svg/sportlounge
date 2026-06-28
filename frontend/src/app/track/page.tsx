@@ -236,7 +236,7 @@ export default function TrackPage() {
   return (
     <>
       <Header />
-      <main className="pt-24 pb-16 min-h-screen">
+      <main className="pt-36 md:pt-40 pb-16 min-h-screen">
         <Suspense fallback={<div className="text-center pt-32"><div className="skeleton h-12 w-48 mx-auto rounded-xl animate-pulse" /></div>}>
           <TrackContent />
         </Suspense>

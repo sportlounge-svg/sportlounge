@@ -118,7 +118,7 @@ export default function MenuPage() {
   return (
     <>
       <Header />
-      <main className="pt-24 pb-16 min-h-screen relative overflow-hidden smoke-bg">
+      <main className="pt-36 md:pt-40 pb-16 min-h-screen relative overflow-hidden smoke-bg">
         {/* Glow */}
         <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full filter blur-[150px] opacity-[0.05] pointer-events-none"
           style={{ background: 'radial-gradient(circle, var(--gold) 0%, transparent 70%)' }} />

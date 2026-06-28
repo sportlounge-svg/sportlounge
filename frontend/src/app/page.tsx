@@ -145,8 +145,11 @@ export default function HomePage() {
             <p className="mb-10 font-light" style={{ color: 'var(--text-secondary)', fontSize: '1rem' }}>
               Оформите заказ онлайн прямо со своего стола, и наш мастер сразу займется вашим кальяном.
             </p>
-            <Link href="/order" className="no-underline btn-gold text-sm px-12 py-4.5">
-              Заказать кальян →
+            <Link href="/order" className="no-underline btn-gold text-sm px-12 py-4.5 flex items-center gap-2 mx-auto w-max">
+              Заказать кальян
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+              </svg>
             </Link>
           </div>
         </section>

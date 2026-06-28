@@ -140,7 +140,7 @@ export default function LoginPage() {
   return (
     <>
       <Header />
-      <main className="pt-24 pb-16 min-h-screen flex items-center justify-center relative overflow-hidden smoke-bg">
+      <main className="pt-36 md:pt-40 pb-16 min-h-screen flex items-center justify-center relative overflow-hidden smoke-bg">
         {/* Decorative background glow */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full filter blur-[160px] opacity-[0.06] pointer-events-none"
           style={{ background: 'radial-gradient(circle, var(--gold) 0%, transparent 70%)' }} />

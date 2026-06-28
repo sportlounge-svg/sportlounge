@@ -54,8 +54,11 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         </nav>
 
         <div className="p-5" style={{ borderTop: '1px solid var(--border)' }}>
-          <Link href="/" className="no-underline flex items-center gap-2 text-[9px] font-bold uppercase tracking-wider" style={{ color: 'var(--text-muted)' }}>
-            ← На сайт
+          <Link href="/" className="no-underline flex items-center gap-2 text-[9px] font-bold uppercase tracking-wider transition-all hover:text-gold" style={{ color: 'var(--text-muted)' }}>
+            <svg className="w-3 h-3" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+            </svg>
+            На сайт
           </Link>
         </div>
       </aside>

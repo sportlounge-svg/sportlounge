@@ -82,7 +82,7 @@ export default function ProfilePage() {
     return (
       <>
         <Header />
-        <main className="pt-24 pb-16 min-h-screen flex items-center justify-center">
+        <main className="pt-36 md:pt-40 pb-16 min-h-screen flex items-center justify-center">
           <div className="text-center">
             <span className="animate-spin inline-block w-8 h-8 rounded-full border-4 border-solid border-current border-t-transparent text-gold mr-3" style={{ color: 'var(--gold)' }} />
             <p className="mt-4 text-xs uppercase tracking-wider font-mono-utility" style={{ color: 'var(--text-muted)' }}>Загрузка профиля...</p>
@@ -98,7 +98,7 @@ export default function ProfilePage() {
   return (
     <>
       <Header />
-      <main className="pt-24 pb-16 min-h-screen relative overflow-hidden smoke-bg">
+      <main className="pt-36 md:pt-40 pb-16 min-h-screen relative overflow-hidden smoke-bg">
         {/* Glow */}
         <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full filter blur-[150px] opacity-[0.03] pointer-events-none"
           style={{ background: 'radial-gradient(circle, var(--gold) 0%, transparent 70%)' }} />
