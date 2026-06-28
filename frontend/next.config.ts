@@ -5,7 +5,7 @@ const isGithubActions = process.env.GITHUB_ACTIONS === 'true';
 const nextConfig: NextConfig = {
   output: 'export',
   trailingSlash: true,
-  basePath: isGithubActions ? '/hozwork' : '',
+  basePath: isGithubActions ? '/sportlounge' : '',
   images: {
     unoptimized: true,
   },

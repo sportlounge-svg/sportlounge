@@ -25,7 +25,7 @@ export default function LoginPage() {
     setError('');
     try {
       const isGithub = window.location.hostname.endsWith('github.io');
-      const basePath = isGithub ? '/hozwork' : '';
+      const basePath = isGithub ? '/sportlounge' : '';
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
